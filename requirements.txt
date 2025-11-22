@@ -1,5 +1,5 @@
 streamlit
-tflite-runtime
+onnxruntime
 numpy
 pillow
 requests
