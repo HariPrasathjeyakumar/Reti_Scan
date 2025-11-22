@@ -2,6 +2,6 @@ streamlit
 onnxruntime
 numpy
 pillow
-plotly
-fpdf
 requests
+altair
+pandas
