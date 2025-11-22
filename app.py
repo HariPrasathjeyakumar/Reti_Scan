@@ -44,7 +44,6 @@ st.markdown("""
     </style>
 """, unsafe_allow_html=True)
 
-
 # ======================================================
 # 1) DOWNLOAD ONNX MODEL
 # ======================================================
@@ -63,7 +62,6 @@ def download_from_drive(file_id, dest):
             if chunk:
                 f.write(chunk)
 
-
 @st.cache_resource
 def load_model():
     MODEL_FILE = "ddr_model.onnx"
@@ -77,11 +75,9 @@ session = load_model()
 
 IMG_SIZE = (300, 300)
 
-
 # ======================================================
 # 2) STAGE MAPPING + SYMPTOMS + BASIS
 # ======================================================
-
 stage_info = {
     "No DR": {
         "color": "#2ecc71",
@@ -136,12 +132,11 @@ stage_info = {
             "4-2-1 Rule:",
             "Hemorrhages in all 4 quadrants",
             "Venous beading in 2+ quadrants",
-            "IRMAs in at least 1 quadrant",
+            "IRMA in at least 1 quadrant",
             "OR presence of neovascularization"
         ]
     }
 }
-
 
 # ======================================================
 # 3) MODEL PREDICTION
@@ -158,7 +153,6 @@ def predict(image):
     pred = int(np.argmax(preds))
     conf = float(np.max(preds))
 
-    # Convert model output to clinical stage
     if pred == 0:
         stage = "No DR"
     elif pred == 1:
@@ -170,7 +164,6 @@ def predict(image):
 
     return stage, conf
 
-
 # ======================================================
 # 4) UI
 # ======================================================
@@ -181,27 +174,25 @@ st.markdown("<div class='upload-box'>", unsafe_allow_html=True)
 uploaded_file = st.file_uploader("Choose a retina image", type=["jpg","jpeg","png"])
 st.markdown("</div>", unsafe_allow_html=True)
 
-# --- EXPLANATION BOX ---
 with st.expander("📘 Understanding DR Stages (Medical Basis)"):
     st.markdown("""
         **Diabetic Retinopathy is clinically divided into 4 stages:**
-        
+
         **🟢 No DR** — Healthy retina, no abnormalities.  
         **🟡 Mild DR** — Microaneurysms only.  
         **🟠 Moderate DR** — Hemorrhages, exudates, IRMA.  
         **🔴 Severe DR** — 4-2-1 rule or neovascularization.
-        
-        Each stage is determined by examining the retina for:
+
+        Key features examined:
         - Microaneurysms  
         - Hemorrhages  
         - Exudates  
         - Cotton wool spots  
         - Venous beading  
         - IRMA  
-        - Abnormal new blood vessels (neovascularization)
+        - Neovascularization
     """)
 
-# --- PREDICTION ---
 if uploaded_file:
     image = Image.open(uploaded_file).convert("RGB")
     st.image(image, caption="Uploaded Image", width=350)
