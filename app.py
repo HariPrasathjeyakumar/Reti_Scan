@@ -15,9 +15,9 @@ def load_model():
 
     if not os.path.exists(MODEL_PATH):
         # Replace with your file ID
-        FILE_ID = "YOUR_GOOGLE_DRIVE_FILE_ID"
+        FILE_ID = "1CrgDM9BONOITwSOQnyzbnJf7RoItRfS1"
 
-        download_url = f"https://drive.google.com/uc?export=download&id=1CrgDM9BONOITwSOQnyzbnJf7RoItRfS1"
+        download_url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
         response = requests.get(download_url)
 
         with open(MODEL_PATH, "wb") as f:
