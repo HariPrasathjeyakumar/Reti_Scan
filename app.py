@@ -17,7 +17,7 @@ def load_model():
         # Replace with your file ID
         FILE_ID = "YOUR_GOOGLE_DRIVE_FILE_ID"
 
-        download_url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
+        download_url = f"https://drive.google.com/uc?export=download&id=1CrgDM9BONOITwSOQnyzbnJf7RoItRfS1"
         response = requests.get(download_url)
 
         with open(MODEL_PATH, "wb") as f:
@@ -82,4 +82,5 @@ if uploaded_file is not None:
 
         st.success(f"### Prediction: **{label_map.get(cls)}**")
         st.info(f"Confidence: **{conf*100:.2f}%**")
+
 
