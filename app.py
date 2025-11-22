@@ -33,7 +33,7 @@ def load_model():
     MODEL_PATH = "ddr_efficientnetb3_final.h5"
 
     if not os.path.exists(MODEL_PATH):
-        FILE_ID = "1CrgDM9BONOITwSOQnyzbnJf7RoItRfS1"  # <-- YOUR MODEL ID
+        FILE_ID = "1bckOwYULzekNNGAZ6rzf0krvkBSBCTIH"  # <-- YOUR MODEL ID
         st.write("Downloading model from Google Drive... (this happens only once)")
         download_file_from_google_drive(FILE_ID, MODEL_PATH)
 
@@ -88,3 +88,4 @@ if uploaded_file:
 
         st.success(f"### Prediction: **{label_map[cls]}**")
         st.info(f"Confidence: **{conf*100:.2f}%**")
+
