@@ -2,7 +2,31 @@ import streamlit as st
 import tensorflow as tf
 import numpy as np
 from PIL import Image
-import io
+import requests
+import os
+
+# ===============================
+# DOWNLOAD MODEL FROM GOOGLE DRIVE
+# ===============================
+
+@st.cache_resource
+def load_model():
+    MODEL_PATH = "ddr_efficientnetb3_final.h5"
+
+    if not os.path.exists(MODEL_PATH):
+        # Replace with your file ID
+        FILE_ID = "YOUR_GOOGLE_DRIVE_FILE_ID"
+
+        download_url = f"https://drive.google.com/uc?export=download&id={FILE_ID}"
+        response = requests.get(download_url)
+
+        with open(MODEL_PATH, "wb") as f:
+            f.write(response.content)
+
+    model = tf.keras.models.load_model(MODEL_PATH)
+    return model
+
+model = load_model()
 
 # ----------------------------
 # Load Model
@@ -58,3 +82,4 @@ if uploaded_file is not None:
 
         st.success(f"### Prediction: **{label_map.get(cls)}**")
         st.info(f"Confidence: **{conf*100:.2f}%**")
+
