@@ -167,12 +167,28 @@ def predict(image):
 # ======================================================
 # 4) UI
 # ======================================================
-st.markdown("<div class='title'>👁️ Retina DR Classifier</div>", unsafe_allow_html=True)
-st.markdown("<div class='subtitle'>Analyze retinal images for diabetic retinopathy severity.</div>", unsafe_allow_html=True)
+import streamlit.components.v1 as components
 
-st.markdown("<div class='upload-box'>", unsafe_allow_html=True)
-uploaded_file = st.file_uploader("Choose a retina image", type=["jpg","jpeg","png"])
-st.markdown("</div>", unsafe_allow_html=True)
+html_output = f"""
+<div class='result-card'>
+    <div class='pred-label' style='color:{info["color"]};'>
+        {stage}
+    </div>
+
+    <div class='confidence'>
+        Confidence: <b>{conf*100:.2f}%</b>
+    </div>
+
+    <div class='symptoms-title'>Symptoms:</div>
+    <ul class='symptoms-text'>{symptoms_html}</ul>
+
+    <div class='symptoms-title'>How This Stage is Determined:</div>
+    <ul class='symptoms-text'>{basis_html}</ul>
+</div>
+"""
+
+components.html(html_output, height=500, scrolling=True)
+
 
 with st.expander("📘 Understanding DR Stages (Medical Basis)"):
     st.markdown("""
@@ -223,3 +239,4 @@ if uploaded_file:
                 <ul class='symptoms-text'>{basis_html}</ul>
             </div>
         """, unsafe_allow_html=True)
+
